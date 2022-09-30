@@ -6,4 +6,4 @@ var fullPrice;
 var adaptive;
 
 alert('Тестовое сообщение');
-console.log('еще одно сообщение');
+console.log('еще одно сообщени');
