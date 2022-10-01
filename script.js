@@ -1,9 +1,9 @@
-var title;
-var screens;
-var screenPrice;
-var rollback;
-var fullPrice;
-var adaptive;
+let title;
+let screens;
+let screenPrice;
+let rollback;
+let fullPrice;
+let adaptive;
 
 alert('Тестовое сообщение');
 console.log('еще одно сообщение');
