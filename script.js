@@ -1,9 +1,9 @@
-var title = 'Новый проект';
-var screens = 'Простые, Сложные, Интерактивные';
-var screenPrice = 1500;
-var rollback = 13;
-var fullPrice = 10000;
-var adaptive = true;
+let title = 'Новый проект';
+let screens = 'Простые, Сложные, Интерактивные';
+let screenPrice = 1500;
+let rollback = 13;
+let fullPrice = 10000;
+let adaptive = true;
 
 console.log(typeof(title));
 console.log(typeof(fullPrice));
