@@ -1,8 +1,8 @@
 let num = 266219;
 let sum = 1;
+let numOver = num.toString().length;
 
-
-for(let i = 0; i < num.toString().length; i++){
+for(let i = 0; i < numOver; i++){
 	sum = num.toString()[i] * sum;
 }
 sum **= 3;
