@@ -22,14 +22,15 @@ console.log(service2);
 console.log(servicePrice2);
 console.log(rollback);
 console.log(`Общая сумма составляет ${fullPrice} рублей.`);
+console.log(`Общая сумма составляет ${fullPrice} рублей.`);
 console.log(`После вычета отката посреднику ${servicePercentPrice}`);
 
 
 if(fullPrice >= 30000 ){
-	servicePercentPrice = screenPrice - (servicePercentPrice *= 0.1);
+	servicePercentPrice = Math.ceil(screenPrice - (servicePercentPrice *= 0.1));
 	console.log(`Стоимость услуги с учетом скидки в 10% составляет ${servicePercentPrice} рублей.`);
 } else if(fullPrice < 30000 || fullPrice >= 15000){
-	servicePercentPrice = screenPrice - (servicePercentPrice *= 0.05);
+	servicePercentPrice = Math.ceil(screenPrice - (servicePercentPrice *= 0.05));
 	console.log(`Стоимость услуги с учетом скидки в 5% составляет ${servicePercentPrice} рублей.`);
 } else if(fullPrice < 15000 || fullPrice >= 0){
 	console.log('Скидка не предусмотрена');

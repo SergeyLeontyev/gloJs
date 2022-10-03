@@ -1,11 +1,31 @@
-let num = 266219;
-let sum = 1;
-let numOver = num.toString().length;
+let lang = prompt('Выберите язык', 'ru, en');
+let namePerson = prompt('Введите ваше имя');
 
-for(let i = 0; i < numOver; i++){
-	sum = num.toString()[i] * sum;
+if(lang == 'ru'){
+	console.log('Пн,Вт,Ср,Чт,Пт,Сб,Вс');
+} else if (lang == 'en'){
+	console.log('Mon, Tue, Wed, Thu, Fri, Sat, Sun');
+} else{
+	console.log('Вы неверно выбрали язык');
 }
-sum **= 3;
-console.log(`Возведение в степень 3 = ${sum}`);
 
-console.log(`Вывод первых 2х чисел ресультата = "${sum.toString().substring(0,2)}"`);
+switch (lang){
+	case 'ru': 
+	console.log('Пн,Вт,Ср,Чт,Пт,Сб,Вс');
+	break
+	case 'en':
+		console.log('Mon, Tue, Wed, Thu, Fri, Sat, Sun');
+		break
+	default: 
+	console.log('Вы неверно выбрали язык');
+}
+
+
+
+
+let language_arr = [];
+language_arr['ru'] = ['Пн','Вт','СР','Чт','Пт','Сб','Вс'];
+language_arr['en'] = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+console.log(language_arr[lang]);
+
+namePerson === "Артем" ?  console.log('Директор') : namePerson === "Александр" ? console.log('Преподаватель') : console.log('Студент');
