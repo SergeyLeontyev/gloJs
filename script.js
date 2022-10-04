@@ -9,18 +9,12 @@ const servicePrice1 = parseInt(prompt("Сколько это будет стои
 const service2 = prompt("Какой дополнительный тип услуги нужен?");
 const servicePrice2 = parseInt(prompt("Сколько это будет стоить?"));
 const rollback = 13;
-let fullPrice = screenPrice + servicePrice1 + servicePrice2;
-let servicePercentPrice = Math.ceil(fullPrice - (fullPrice * (rollback / 100)));
+const fullPrice = screenPrice + servicePrice1 + servicePrice2;
+const servicePercentPrice = Math.ceil(fullPrice - (fullPrice * (rollback / 100)));
 
 console.log(title);
 console.log(screens);
-console.log(screenPrice);
 console.log(adaptive);
-console.log(service1);
-console.log(servicePrice1);
-console.log(service2);
-console.log(servicePrice2);
-console.log(rollback);
 console.log(`Общая сумма составляет ${fullPrice} рублей.`);
 console.log(`Общая сумма составляет ${fullPrice} рублей.`);
 console.log(`После вычета отката посреднику ${servicePercentPrice}`);
@@ -39,3 +33,9 @@ if(fullPrice >= 30000 ){
 }
 
 
+
+
+
+
+//function exp1(){} - function declaration - можно вызывать как перед объявлением так и после
+//const exp1 = function(){} - function expression - можно вызывать только после объявления 
