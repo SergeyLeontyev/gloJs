@@ -13,7 +13,8 @@ const rollback = 13 / 100;
 
 
 const isNumber = function (num) {
-	return !isNaN(parseFloat(num)) && isFinite(num);
+	console.log(num);
+	return !isNaN(parseFloat(num)) && isFinite(num) && num;
 }
 
 const asking = function () {
@@ -22,9 +23,11 @@ const asking = function () {
 	screenPrice = +prompt("Сколько будет стоить данная работа?");
 
 	do {
-		screenPrice = +prompt("Сколько будет стоить данная работа?");
+		if (!isNumber(screenPrice)) {
+			screenPrice = +prompt("Сколько будет стоить данная работа?");
+		}
 
-	} while (isNumber(screenPrice) && screenPrice === "");
+	} while (!isNumber(screenPrice));
 
 	// while (!isNumber(screenPrice)) {
 	// 	screenPrice = +prompt("Сколько будет стоить данная работа?");
@@ -42,7 +45,13 @@ const getAllServicePrices = function () {
 		} else if (i === 1) {
 			service2 = prompt("Какой дополнительный тип услуги нужен?");
 		}
-		sum += parseInt(prompt("Сколько это будет стоить?"));
+		let sum2 = +prompt("Сколько будет стоить данная работа?");
+		do {
+			if (!isNumber(sum2)) {
+				sum2 += +prompt("Сколько будет стоить данная работа?");
+			}
+		} while (!isNumber(sum2));
+		sum += sum2;
 	}
 	return sum;
 };
