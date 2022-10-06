@@ -46,11 +46,9 @@ const getAllServicePrices = function () {
 			service2 = prompt("Какой дополнительный тип услуги нужен?");
 		}
 		let sum2 = +prompt("Сколько будет стоить данная работа?");
-		do {
-			if (!isNumber(sum2)) {
-				sum2 += +prompt("Сколько будет стоить данная работа?");
-			}
-		} while (!isNumber(sum2));
+		while (!isNumber(sum2)) {
+			sum2 = +prompt("Сколько будет стоить данная работа?");
+		};
 		sum += sum2;
 	}
 	return sum;
