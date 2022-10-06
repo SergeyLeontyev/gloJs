@@ -24,7 +24,7 @@ const asking = function () {
 
 	do {
 		if (!isNumber(screenPrice)) {
-			screenPrice = +prompt("Сколько будет стоить данная работа?");
+			screenPrice = +prompt("Сколько будет стоить данная работа?").replace(/\s/g, '');
 		}
 
 	} while (!isNumber(screenPrice));
@@ -47,7 +47,7 @@ const getAllServicePrices = function () {
 		}
 		let sum2 = +prompt("Сколько будет стоить данная работа?");
 		while (!isNumber(sum2)) {
-			sum2 = +prompt("Сколько будет стоить данная работа?");
+			sum2 = +prompt("Сколько будет стоить данная работа?").replace(/\s/g, '');
 		};
 		sum += sum2;
 	}
