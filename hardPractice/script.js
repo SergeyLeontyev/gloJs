@@ -1,38 +1,60 @@
-let arr = [];
-for (let i = 0; i < 5; i++) {
-	let arrItem = prompt('Введите число');
-	arr.push(arrItem);
-}
-
-console.log(arr);
-
-arr.forEach(item => {
-	if (item[0] === "2" || item[0] === "4") {
-		console.log(item);
-	}
-});
+const getRandomInt = function (max) {
+	return Math.floor(Math.random() * Math.floor(max));
+};
 
 
+const isNum = function (num) {
+	return !isNaN(parseFloat(num)) && isFinite(num);
+};
 
-const number = function (el) {
-	let arr = [];
-	if (el !== 1) {
-		arr.push(1);
-		for (let j = 2; j * j <= el; j++) {
-			if (el % j === 0) {
-				arr.push(j);
+
+const start = function () {
+	let randNum = getRandomInt(100);
+	let attempt = 2;
+	console.log('randNum: ', randNum);
+
+	const play = function () {
+		attempt--;
+
+		if (attempt < 0) {
+			if (confirm('Попытки закончились, хотите сыграть еще?')) {
+				start();
+			} else {
+				alert('До свидания');
+				return;
+			}
+		} else {
+			const number = prompt(`"Угадай число от 1 до 100" (Выйти из игры - нажать отмену) ${randNum}`);
+			if (number === null) {
+				alert('Игра окончена');
+				return;
+			}
+
+			if (isNum(number)) {
+				const num = +number;
+				if (num > randNum) {
+					alert(`Загаданное число больше, осталось попыток ${attempt}`);
+					play();
+				} else if (num < randNum) {
+					alert(`Загаданное число меньше, осталось попыток ${attempt}`);
+					play();
+				} else {
+					if (confirm('Поздравляю, Вы угадали!!!')) {
+						start();
+					} else {
+						alert('Игра окончена');
+					}
+				}
+			} else {
+				alert('Введите число');
+				play();
 			}
 		}
 	}
-	arr.push(el);
-	return arr;
-};
 
-for (let i = 1; i <= 100; i++) {
-	const n = number(i);
-	if (n.length <= 2) {
-		console.log(`${i}: Делители этого числа: ${n.join(', ')}`);
-	}
+	play();
+
+
 }
 
-
+start();
