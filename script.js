@@ -21,35 +21,30 @@ const asking = function () {
 	title = prompt("Как называется ваш проект?", "простое название");
 	screens = prompt("Какие типы экранов нужно разработать?", "Простые, Сложные, Интерактивные");
 	screenPrice = +prompt("Сколько будет стоить данная работа?");
-
 	do {
 		if (!isNumber(screenPrice)) {
 			screenPrice = +prompt("Сколько будет стоить данная работа?").replace(/\s/g, '');
 		}
 
 	} while (!isNumber(screenPrice));
-
-	// while (!isNumber(screenPrice)) {
-	// 	screenPrice = +prompt("Сколько будет стоить данная работа?");
-	// };
-
 	adaptive = confirm("Нужен ли адаптив?");
 };
 
 const getAllServicePrices = function () {
+
 	let sum = 0;
 	for (let i = 0; i < 2; i++) {
-
+		let price = +prompt("Сколько будет стоить данная работа?");
 		if (i === 0) {
 			service1 = prompt("Какой дополнительный тип услуги нужен?");
 		} else if (i === 1) {
 			service2 = prompt("Какой дополнительный тип услуги нужен?");
 		}
-		let sum2 = +prompt("Сколько будет стоить данная работа?");
-		while (!isNumber(sum2)) {
-			sum2 = +prompt("Сколько будет стоить данная работа?").replace(/\s/g, '');
+
+		while (!isNumber(price)) {
+			price = +prompt("Сколько будет стоить данная работа?").replace(/\s/g, '');
 		};
-		sum += sum2;
+		sum += price;
 	}
 	return sum;
 };
