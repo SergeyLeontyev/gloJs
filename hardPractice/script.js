@@ -1,38 +1,18 @@
-let arr = [];
-for (let i = 0; i < 5; i++) {
-	let arrItem = prompt('Введите число');
-	arr.push(arrItem);
-}
+let box = document.querySelector('.date');
+let date = new Date();
+let numbDay = ['Пн','Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
 
-console.log(arr);
-
-arr.forEach(item => {
-	if (item[0] === "2" || item[0] === "4") {
-		console.log(item);
+numbDay.forEach((item, index) =>{
+	let dateDay = document.createElement('p');
+	dateDay.innerHTML = item;
+	box.appendChild(dateDay);
+	if(index == date.getDay() - 1){
+		dateDay.style.fontStyle = "italic";
+	}
+	if(item == 'Вс' || item == 'Сб'){
+		dateDay.style.fontWeight = "bold";
 	}
 });
 
-
-
-const number = function (el) {
-	let arr = [];
-	if (el !== 1) {
-		arr.push(1);
-		for (let j = 2; j * j <= el; j++) {
-			if (el % j === 0) {
-				arr.push(j);
-			}
-		}
-	}
-	arr.push(el);
-	return arr;
-};
-
-for (let i = 1; i <= 100; i++) {
-	const n = number(i);
-	if (n.length <= 2) {
-		console.log(`${i}: Делители этого числа: ${n.join(', ')}`);
-	}
-}
 
 
