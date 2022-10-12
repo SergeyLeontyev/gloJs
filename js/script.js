@@ -1,6 +1,6 @@
 'use strict';
 
-let h1 = document.getElementsByTagName('h1')[0].textContent;
+let title = document.getElementsByTagName('h1')[0].textContent;
 let btnAll = document.getElementsByClassName('handler_btn');
 let btnPlus = document.querySelector('.screen-btn');
 let allOtherItems = document.querySelectorAll('.other-items');
