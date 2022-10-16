@@ -1,130 +1,90 @@
-'use strict';
+// 1 Сортировать книги
 
-const isNumber = function (num) {
-	return !isNaN(parseFloat(num)) && isFinite(num) && num;
-}
+const books = document.querySelector('.books');
+const allBook = document.querySelectorAll('.book');
 
-let i = 0;
-const appData = {
-	title: '',
-	screens: [],
-	screenPrice: 0,
-	adaptive: true,
-	rollback: 13 / 100,
-	allServicePrices: 0,
-	fullPrice: 0,
-	servicePercentPrice: 0,
-	services: {},
-
-	start: function () {
-		appData.asking();
-		appData.addPrices();
-		appData.getFullPrice();
-		appData.getServicePercentPrices();
-		appData.getTitle();
-		appData.prodInfo();
-		appData.logger();
-
-	},
-
-	getTitle: function () {
-		appData.title = appData.title.trim()[0].toUpperCase() + appData.title.trim().substr(1).toLowerCase();
-	},
-
-	asking: function () {
-		appData.title = prompt("Как называется ваш проект?", "простое название").trim();
-
-		while (isNumber(appData.title) || appData.title === '' || appData.title === undefined) {
-			appData.title = prompt("Как называется ваш проект?", "простое название").trim();
-		};
-
-
-		for (let i = 0; i < 2; i++) {
-			let name = prompt("Какие типы экранов нужно разработать?", "Простые, Сложные, Интерактивные");
-			let price = 0;
-
-			while (isNumber(name) || name === '' || name === undefined) {
-				name = prompt("Какие типы экранов нужно разработать?", "Простые, Сложные, Интерактивные").trim();
-			};
-
-			do {
-				if (!isNumber(price)) {
-					price = prompt("Сколько будет стоить данная работа?");
-				}
-			} while (!isNumber(price));
-			appData.screens.push({ id: i, name: name, price: +price });
-		}
-
-		for (let i = 0; i < 2; i++) {
-			let name = prompt("Какой дополнительный тип услуги нужен?").trim();
-			let price = 0;
-
-			while (isNumber(name) || name === '' || name === undefined) {
-				name = prompt("Какой дополнительный тип услуги нужен?").trim();
-			};
-
-			while (!isNumber(price)) {
-				price = prompt("Сколько будет стоить данная работа?");
-			};
-
-			appData.services[`${name}${i}`] = +price;
-		}
-
-		appData.adaptive = confirm("Нужен ли адаптив?");
-	},
-
-	addPrices: function () {
-		appData.screenPrice = appData.screens.reduce(function (sum, item) {
-			return sum + item.price;
-		}, 0);
-
-		for (let key in appData.services) {
-			appData.allServicePrices += appData.services[key];
-		}
-	},
-
-
-	getFullPrice: function () {
-		appData.fullPrice = +appData.screenPrice + appData.allServicePrices;
-	},
-
-	getServicePercentPrices: function () {
-		appData.servicePercentPrice = Math.ceil(appData.fullPrice - (appData.fullPrice * appData.rollback));
-	},
-
-	prodInfo: function () {
-		console.log("allServicePrices", appData.allServicePrices);
-		console.log(`Название сайта ${appData.getTitle(appData.title)}`);
-		console.log(appData.getRollbakMessage(appData.fullPrice));
-		console.log(`Общая сумма составляет ${appData.fullPrice} рублей.`);
-		console.log(`После вычета отката посреднику ${appData.servicePercentPrice} рубля`);
-	},
-
-
-
-	getRollbakMessage: function (price) {
-		if (price >= 30000) {
-			return "Даём скидку в 10%";
-		} else if (price >= 15000 && price < 30000) {
-			return "Даём скидку в 5%";
-		} else if (price >= 0 && price < 15000) {
-			return "Скидка не предусмотрена";
-		} else {
-			return "Что то пошло не так";
-		}
-	},
-	logger: function () {
-		// for (let position in appData) {
-		// 	i++;
-		// 	console.log(`Свойство № ${i} = ${position}`);
-		// }
-		// console.log(appData.screens);
-		console.log(appData.screenPrice);
-
+const arr = Object.keys(allBook).sort((prev, next) => {
+	if (allBook[prev].firstElementChild.innerText > allBook[next].firstElementChild.innerText) {
+		return 1;
+	}
+	if (allBook[prev].firstElementChild.innerText < allBook[next].firstElementChild.innerText) {
+		return -1;
 	}
 
-};
+});
+
+for (let i = 0; i < arr.length; i++) {
+	books.appendChild(allBook[arr[i]]);
+}
+
+
+// 2 Заменить фон
+
+document.querySelector('body').style.backgroundImage = 'url(./image/you-dont-know-js.jpg)';
+
+// 3 Удалить рекламу
+
+const adv = document.querySelector('.adv').remove();
+
+// 4 Заменить заголовок
+
+books.children[2].querySelector('h2').querySelector('a').text = 'Книга 3. this и Прототипы Объектов';
+
+//5 Сортировка глав
+
+const sort = collection => {
+	const sortElem = arr => {
+		const arrIndex = Object.keys(arr).sort((prev, next) => {
+			if (arr[prev].innerText > arr[next].innerText) {
+				return 1;
+			}
+			if (arr[prev].innerText < arr[next].innerText) {
+				return -1;
+			}
+		})
+		const arrNew = [];
+		for (let i = 0; i < arrIndex.length; i++) {
+			arrNew.push(arr[arrIndex[i]]);
+		}
+		return arrNew;
+	}
+
+	const elem = collection.querySelectorAll('li');
+	let arrChapter = [];
+	let arrAll = [];
+	elem.forEach(el => {
+		if (el.textContent.indexOf('Введение') > -1) {
+			collection.insertBefore(el, elem[0]);
+		}
+		if (el.textContent.indexOf('Предисловие') > -1) {
+			collection.insertBefore(el, elem[1]);
+		}
+		if (el.textContent.indexOf('Глава') > -1) { arrChapter.push(el); }
+		if (el.textContent.indexOf('Приложение') > -1) { arrAll.push(el); }
+	});
+
+	arrChapter = sortElem(arrChapter);
+	arrChapter.forEach(el => {
+		collection.appendChild(el);
+	});
+
+	arrAll = sortElem(arrAll);
+	arrAll.forEach(el => {
+		collection.appendChild(el);
+	});
+}
+
+sort(books.children[1].querySelector('ul'));
+sort(books.children[4].querySelector('ul'));
 
 
 
-appData.start();
+
+
+
+//6 
+
+let createChapt = document.createElement('li');
+createChapt.innerText = 'Глава 8: За пределами ES6';
+books.children[5].querySelector('ul').appendChild(createChapt);
+sort(books.children[5].querySelector('ul'));
