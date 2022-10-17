@@ -16,14 +16,22 @@ const appData = {
 	servicePercentPrice: 0,
 	services: {},
 
+	init: function() {
+		appData.addTitle();
+		appData.start();
+	},
+	addTitle: function (){
+console.log(title)
+	},
+
 	start: function () {
-		appData.asking();
-		appData.addPrices();
-		appData.getFullPrice();
-		appData.getServicePercentPrices();
-		appData.getTitle();
-		appData.prodInfo();
-		appData.logger();
+		// appData.asking();
+		// appData.addPrices();
+		// appData.getFullPrice();
+		// appData.getServicePercentPrices();
+		// appData.getTitle();
+		// appData.prodInfo();
+		// appData.logger();
 
 	},
 
@@ -127,4 +135,4 @@ const appData = {
 
 
 
-appData.start();
+appData.init();
