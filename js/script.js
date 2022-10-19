@@ -1,30 +1,56 @@
-'use strict';
+//todo-control
+//todo-list
+//todo-completed
+//header-input
 
-const title = document.getElementsByTagName('h1')[0].textContent;
-const btnStart = document.getElementsByClassName('handler_btn')[0];
-const btnReset = document.getElementsByClassName('handler_btn')[1];
-const btnPlus = document.querySelector('.screen-btn');
-const allOtherItems = document.querySelectorAll('.other-items');
-const itemPercent = [];
-const itemNumber = [];
-const rollback = document.querySelector('.rollback input');
-const rollSpan = document.querySelector('.rollback span');
-const total = document.getElementsByClassName('total-input')[0];
-const totalCount = document.getElementsByClassName('total-input')[1];
-const totalOther = document.getElementsByClassName('total-input')[2];
-const totalFull = document.getElementsByClassName('total-input')[3];
-const totalRollback = document.getElementsByClassName('total-input')[4];
-let screens = document.querySelectorAll('.screen');
+document.addEventListener('DOMContentLoaded', () => {
+	const todoControl = document.querySelector('.todo-control');
+	const todoList = document.querySelector('.todo-list');
+	const todoCompleted = document.querySelector('.todo-completed');
+	const headerInput = document.querySelector('.header-input');
+	const todoData = [];
 
-const sort = function () {
-	allOtherItems.forEach((item) => {
-		if (item.classList.contains('percent')){
-			itemPercent.push(item);
+	const render = function () {
+		todoList.innerHTML = '';
+		todoCompleted.innerHTML = '';
+		todoData.forEach(function (item) {
+
+			const li = document.createElement('li');
+			li.classList.add('todo-item');
+
+			li.innerHTML = `<span class="text-todo">${item.text}</span>
+		<div class="todo-buttons"><button class="todo-remove"></button>
+		<button class="todo-complete"></button></div>`;
+
+			if (item.completed) {
+				todoCompleted.append(li);
+			} else {
+				todoList.append(li);
+			}
+
+			li.querySelector('.todo-complete').addEventListener('click', function () {
+				item.completed = !item.completed;
+				render();
+			})
+		})
+	};
+
+
+	//Отмена стандартного действия отправки формы
+	todoControl.addEventListener('submit', function (event) {
+		event.preventDefault();
+
+		if (headerInput.value == 0 || headerInput.value == '' || headerInput.value.match(/^[ ]+$/)) {
+			alert('Введите задачу');
+			headerInput.value = '';
 		} else {
-			itemNumber.push(item);
+			const newTodo = {
+				text: headerInput.value,
+				completed: false
+			};
+			todoData.push(newTodo);
+			headerInput.value = '';
 		}
-	})
-}
-sort();
-
-console.log(screens)
+		render();
+	});
+});
