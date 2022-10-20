@@ -28,11 +28,12 @@ const render = function () {
 };
 
 
-
+//загрузка localhost при наличии
 if (localStorage.getItem('todo')) {
 	todoData = JSON.parse(localStorage.getItem('todo'));
 	render();
 }
+
 
 //Отмена стандартного действия отправки формы и добавление в список
 todoControl.addEventListener('submit', function (event) {
@@ -53,27 +54,19 @@ todoControl.addEventListener('submit', function (event) {
 	render();
 });
 
+
+//удаление элемента
 const arrTodoList = function () {
-
-	let listItem = todoList.querySelectorAll('.todo-item');
 	let removeItem = todoList.querySelectorAll('.todo-remove');
-
-
-
-	removeItem.forEach((item) => {
+	removeItem.forEach((item, indexRemove) => {
 		item.addEventListener('click', function (e) {
-			let target = e.target;
-			target.parentNode.parentNode.remove();
-			listItem.forEach((item) => {
-				const newTodo = {
-					text: item.textContent.trim(),
-					completed: false
-				};
-				todoData.length = 0;
-				todoData.push(newTodo);
-				localStorage.setItem('todo', JSON.stringify(todoData));
-			})
-			console.log(target)
+			let reload = todoData.filter((item, index)=>{
+				return index !== indexRemove;
+			});
+			
+			localStorage.setItem('todo', JSON.stringify(reload));
+			console.log(abc);
+			location.reload();
 		})
 	})
 }
