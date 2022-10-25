@@ -40,7 +40,6 @@ const appData = {
 	screenPrice: 0,
 	adaptive: true,
 	rollback: 0,
-	// rollbackUser: 0,
 	servicePricesPercent: 0,
 	servicePricesNumber: 0,
 	fullPrice: 0,
@@ -51,6 +50,7 @@ const appData = {
 	init: function () {
 		this.addTitle();
 		this.start();
+		this.inputHandler();
 		btnStart.addEventListener("click", this.calc);
 		btnReset.addEventListener("click", this.reset);
 		btnPlus.addEventListener("click", this.addScreenBlock);
@@ -63,7 +63,6 @@ const appData = {
 		newScreens.forEach((item) => {
 			let valueSelect = item.querySelector("select").value;
 			let valueInput = item.querySelector("input").value;
-			console.log(valueSelect);
 			if (valueSelect == 0 || valueInput == "" || valueInput.match(/^[ ]+$/)) {
 				hasValue = false;
 			}
@@ -91,8 +90,6 @@ const appData = {
 		appData.screensValue = [];
 		appData.screenPrice = 0;
 		appData.adaptive = true;
-		// appData.rollback = 0;
-		// appData.rollbackUser = 0;
 		appData.servicePricesPercent = 0;
 		appData.servicePricesNumber = 0;
 		appData.fullPrice = 0;
@@ -120,6 +117,8 @@ const appData = {
 			}
 		});
 		rollInput.disabled = false;
+		rollInput.value = 0;
+		rollSpan.textContent = '0%';
 		cmsOpen.disabled = false;
 		cmsOpen.checked = false;
 		cmsVariable.disabled = false;
@@ -155,7 +154,6 @@ const appData = {
 	openCms: function () {
 		cmsOpen.addEventListener('change', (event) => {
 			let target = event.target;
-			console.log(target.checked);
 			if (target.checked) {
 				cmsVariable.style.display = "flex";
 			} else {
@@ -174,7 +172,6 @@ const appData = {
 				hiddenInput.style.display = "none";
 			}
 		})
-		console.log(cmsOpen.checked);
 	},
 
 	addTitle: function () {
@@ -194,7 +191,6 @@ const appData = {
 	addRoll: function () {
 		rollSpan.textContent = rollInput.value + "%";
 		this.rollback = rollInput.value / 100;
-		console.log(this.rollback);
 	},
 
 	//Добавление типа экрана
@@ -205,7 +201,6 @@ const appData = {
 			const input = screen.querySelector("input");
 			const selectName = select.options[select.selectedIndex].textContent;
 			input.addEventListener('keydown', function (e) {
-				console.log(e)
 				if ((!isNaN(parseFloat(e.key)) && isFinite) || e.key == 'Backspace' || e.key == 'Delete') {
 				} else {
 					e.preventDefault();
@@ -222,6 +217,16 @@ const appData = {
 			count += +input.value;
 		});
 		totalCount.value = count;
+	},
+
+	inputHandler: function () {
+		inputCount.addEventListener('keydown', function (e) {
+			if ((!isNaN(parseFloat(e.key)) && isFinite) || e.key == 'Backspace' || e.key == 'Delete') {
+			} else {
+				e.preventDefault();
+				return false;
+			}
+		})
 	},
 
 	//Дублирование блока "тип экрана"
@@ -265,13 +270,10 @@ const appData = {
 
 		if (cmsSelect.options[cmsSelect.selectedIndex].value == 50) {
 			this.fullPrice = +this.screenPrice + this.servicePricesPercent + this.servicePricesNumber + ((+this.screenPrice + this.servicePricesPercent + this.servicePricesNumber) * 0.5);
-			console.log('1')
 		} else if (cmsSelect.options[cmsSelect.selectedIndex].value == 'other') {
 			this.fullPrice = +this.screenPrice + this.servicePricesPercent + this.servicePricesNumber + ((+this.screenPrice + this.servicePricesPercent + this.servicePricesNumber) * (inputCount.value / 100));
-			console.log('2')
 		} else {
-			this.fullPrice = +this.screenPrice + this.servicePricesPercent + this.servicePricesNumber
-			console.log('3')
+			this.fullPrice = +this.screenPrice + this.servicePricesPercent + this.servicePricesNumber;
 		}
 
 		this.rollbackUser = +this.fullPrice - (this.fullPrice * this.rollback);
