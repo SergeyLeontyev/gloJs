@@ -1,76 +1,48 @@
-document.addEventListener('DOMContentLoaded', function (event) {
+'use strict';
+
+document.addEventListener('DOMContentLoaded', function () {
 	const px = 10;
+	//Создание функции конструктора
+	function DomElement(selector, height, width, bg) {
+		this.selector = selector;
+		this.height = height;
+		this.width = width;
+		this.bg = bg;
+	}
 
-	const DomElement = function (selector = '.block', styleAtr = {}) {
-		this.selector = selector === 'string' ? selector : (() => {
-			styleAtr = typeof selector === 'object' ? selector : {};
-			return '.block';
-		})();
-		this.height = '100px';
-		this.width = '100px';
-		this.bg = 'green';
-		this.fontSize = '10px';
-		this.cssText = '';
-
-		if (!('height' in styleAtr)) {
-			styleAtr.height = '100px';
-		}
-		if (!('width' in styleAtr)) {
-			styleAtr.width = '100px';
-		}
-		if (!('background' in styleAtr)) {
-			styleAtr.background = 'green';
-		}
-		if (!('font-size' in styleAtr)) {
-			styleAtr['font-size'] = '10px';
-		}
-
-		for (let key in styleAtr) {
-			this.cssText += `${key}: ${styleAtr[key]}; `;
-		}
-	};
-
+	//Добавление метода в функцию конструктора DomElement
 	DomElement.prototype.newElem = function () {
 		let elem;
 
-		if (this.selector[0] === '.') {
-			elem = document.createElement('div');
-			elem.className = this.selector.slice(1);
-		}
+		elem = document.createElement('div');
 
-		if (this.selector[0] === '#') {
-			elem = document.createElement('p');
-			elem.id = this.selector.slice(1);
-		}
-
-		elem.style.cssText = this.cssText;
-		elem.style.cssText += `left: ${Math.round(window.innerWidth / 2 - parseInt(this.width) / 2)}px; `;
-		elem.style.cssText += `top: ${Math.round(window.innerHeight / 2 - parseInt(this.height) / 2)}px; `;
-
-		elem.addEventListener('click', this.transfer);
-
+		elem.style.cssText = `height: ${this.height}px; width: ${this.width}px; background: ${this.bg}; position: absolute; left: ${Math.round(window.innerWidth / 2 - parseInt(this.width) / 2)}px; top: ${Math.round(window.innerHeight / 2 - parseInt(this.height) / 2)}px;`
 		return elem;
-	};
+	}
 
-	let square = new DomElement({
-		position: 'absolute'
-	});
+	//Присваивание конструктора к элементу
+	let block = new DomElement('.block', 100, 100, 'black');
 
-	document.body.appendChild(square.newElem());
+	//Вызов метода 
+	document.body.appendChild(block.newElem());
 
-	document.addEventListener('keyup', (event) => {
-		const div = document.querySelector('div');
-		if (event.key === 'ArrowUp') {
-			div.style.top = parseInt(div.style.top) - px + 'px';
+	document.addEventListener('keydown', function (e) {
+		const block = document.querySelector('div');
+		console.log(e)
+		if (e.key == 'ArrowUp') {
+			block.style.top = parseInt(block.style.top) - px + 'px';
 		}
-		if (event.key === 'ArrowRight') {
-			div.style.left = parseInt(div.style.left) + px + 'px';
+		if (e.key == 'ArrowDown') {
+			block.style.top = parseInt(block.style.top) + px + 'px';
 		}
-		if (event.key === 'ArrowLeft') {
-			div.style.left = parseInt(div.style.left) - px + 'px';
+		if (e.key === 'ArrowRight') {
+			block.style.left = parseInt(block.style.left) + px + 'px';
 		}
-		if (event.key === 'ArrowDown') {
-			div.style.top = parseInt(div.style.top) + px + 'px';
+		if (e.key === 'ArrowLeft') {
+			block.style.left = parseInt(block.style.left) - px + 'px';
 		}
-	});
-});
+
+	})
+
+
+})
