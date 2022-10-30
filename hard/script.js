@@ -1,48 +1,32 @@
-'use strict';
-
-document.addEventListener('DOMContentLoaded', function () {
-	const px = 10;
-	//Создание функции конструктора
-	function DomElement(selector, height, width, bg) {
-		this.selector = selector;
-		this.height = height;
-		this.width = width;
-		this.bg = bg;
+class Calculator {
+	
+	constructor() {
+		this.inputA = document.getElementById('a');
+		this.inputB = document.getElementById('b');
+		this.summa = document.getElementById('sum');
+		this.multi = document.getElementById('mult');
+		this.res = document.getElementById('res');
 	}
 
-	//Добавление метода в функцию конструктора DomElement
-	DomElement.prototype.newElem = function () {
-		let elem;
-
-		elem = document.createElement('div');
-
-		elem.style.cssText = `height: ${this.height}px; width: ${this.width}px; background: ${this.bg}; position: absolute; left: ${Math.round(window.innerWidth / 2 - parseInt(this.width) / 2)}px; top: ${Math.round(window.innerHeight / 2 - parseInt(this.height) / 2)}px;`
-		return elem;
+	// возвращает сумму этих двух значений
+	sum() {
+		return (+this.inputA.value) + (+this.inputB.value);
 	}
 
-	//Присваивание конструктора к элементу
-	let block = new DomElement('.block', 100, 100, 'black');
+	// возвращает произведение этих двух значений
+	mult() {
+		return this.inputA.value * this.inputB.value;
+	}
 
-	//Вызов метода 
-	document.body.appendChild(block.newElem());
-
-	document.addEventListener('keydown', function (e) {
-		const block = document.querySelector('div');
-		console.log(e)
-		if (e.key == 'ArrowUp') {
-			block.style.top = parseInt(block.style.top) - px + 'px';
-		}
-		if (e.key == 'ArrowDown') {
-			block.style.top = parseInt(block.style.top) + px + 'px';
-		}
-		if (e.key === 'ArrowRight') {
-			block.style.left = parseInt(block.style.left) + px + 'px';
-		}
-		if (e.key === 'ArrowLeft') {
-			block.style.left = parseInt(block.style.left) - px + 'px';
-		}
-
-	})
-
-
-})
+	// выводит результат вычислений в инпут ".res" объекта
+	show() {
+		this.summa.addEventListener('click', () => {
+			this.sum.textContent = this.res.value = this.sum()
+		});
+		this.multi.addEventListener('click', () => {
+			this.mult.textContent = this.res.value = this.mult()
+		});
+	}
+}
+const calculator = new Calculator();
+calculator.show();

@@ -1,33 +1,27 @@
 'use strict';
 
-//Создание функции конструктора
-function DomElement (selector, height, width, bg, fontSize){
-	this.selector = selector;
-	this.height = height;
-	this.width = width;
-	this.bg = bg;
-	this.fontSize = fontSize;
-}
 
-//Добавление метода в функцию конструктора DomElement
-DomElement.prototype.newElem = function (){
-	let elem;
-	if(this.selector[0] == '#'){
-		elem = document.createElement('div');
-		elem.className = this.selector.slice(1);
-	} 
-	if(this.selector[0] == '.'){
-		elem = document.createElement('p');
-		elem.id = this.selector.slice(1);
+// Напишите расширения метода прототипа:
+// 1) Два класса, First и Second, Second наследует от First .
+// 2) В First есть метод hello - он печатает в консоль "Привет я метод родителя!".
+// 3) Нужно написать в Second метод hello, чтоб он сначала вызывал метод hello из First, а потом сразу печатал в консоль "А я наследуемый метод!"
+// Проверить, чтобы все работало без ошибок в консоли
+// Запушить задание в репозиторий на github или реализовать на доске CodePen и прикрепить ссылку
+
+class First {
+	hello() {
+		console.log(`Привет я метод родителя!`)
 	}
-	elem.style.cssText = `height: ${this.height}px; width: ${this.width}px; background: ${this.bg}; font-size: ${this.fontSize}px;`
-	return elem;
 }
 
-//Присваивание конструктора к элементу
-let div = new DomElement('.block', 100, 200, 'purple', 12);
-let p = new DomElement('#p', 150, 400, 'black', 12);
+class Second extends First{
+	hello() {
+		super.hello();
+		console.log(`А я наследуемый метод!`)
+	}
+}
 
-//Вызов метода 
-document.body.appendChild(div.newElem());
-document.body.appendChild(p.newElem());
+
+const text = new Second();
+
+text.hello();
